@@ -1,5 +1,5 @@
 //
-//  ArticlesModel.swift
+//  ArticleData.swift
 //  LetsGrow
 //
 //  Created by Alex Bhandari on 1/3/24.
@@ -45,28 +45,36 @@ import Foundation
  */
 
 
-struct ArticleResponse: Codable {
+struct ArticleData: Codable {
     let status: String
     let totalResults: Int
     let articles: [Article]
-    
-    
 }
 
-struct Article: Codable, Identifiable{
+// MARK: - Article
+struct Article: Codable, Identifiable {
+    
     let id = UUID()
     let source: Source
-    let author: String
-    let title: String
-    let description: String
+    let author, title, description: String
     let url: String
     let urlToImage: String
     let publishedAt: String
     let content: String
-    
 }
 
-struct Source: Codable{
-    let id: String
+// MARK: - Source
+struct Source: Codable {
+    let id: String?
     let name: String
 }
+
+struct ArticleError: Codable {
+    let status: String
+    let code: String
+    let message: String
+}
+
+
+
+

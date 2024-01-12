@@ -8,23 +8,23 @@
 import Foundation
 
 protocol NetworkingManager {
-    func fetchData(passedUrl: String) async throws -> Data
+    func fetchData(source: URL) async throws -> Data
 }
 
 
 class NetworkingManagerImpl: NetworkingManager {
+    
+    static let shared = NetworkingManagerImpl()
+    
+    private init() {}
     
     enum NetworkingError: Error{
         case invalidUrl
         case invalidResponse
     }
     
-    func fetchData(passedUrl: String) async throws -> Data{
-        print("URL passed: \(passedUrl)")
-        guard let url = URL(string: passedUrl) else{
-            throw NetworkingError.invalidUrl
-        }
-        let (data, response) = try await URLSession.shared.data(from: url)
+    func fetchData(source: URL) async throws -> Data{
+        let (data, response) = try await URLSession.shared.data(from: source)
         
         guard let response = response as? HTTPURLResponse, response.statusCode == 200 else{
             throw NetworkingError.invalidResponse

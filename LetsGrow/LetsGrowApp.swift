@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct LetsGrowApp: App {
+    
+    
     var body: some Scene {
         WindowGroup {
-            ArticleView()
+            ArticlesView()
         }
     }
 }
