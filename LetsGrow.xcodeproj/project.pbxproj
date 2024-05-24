@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		CFBC47952BFEC7F1004DE8E1 /* LetsGrowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBC47942BFEC7F1004DE8E1 /* LetsGrowApp.swift */; };
-		CFBC47972BFEC7F1004DE8E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBC47962BFEC7F1004DE8E1 /* ContentView.swift */; };
 		CFBC47992BFEC7F3004DE8E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFBC47982BFEC7F3004DE8E1 /* Assets.xcassets */; };
 		CFBC479C2BFEC7F3004DE8E1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFBC479B2BFEC7F3004DE8E1 /* Preview Assets.xcassets */; };
 		CFBC47A62BFECE55004DE8E1 /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBC47A52BFECE55004DE8E1 /* TimerViewModel.swift */; };
@@ -18,7 +17,6 @@
 /* Begin PBXFileReference section */
 		CFBC47912BFEC7F1004DE8E1 /* LetsGrow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LetsGrow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFBC47942BFEC7F1004DE8E1 /* LetsGrowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetsGrowApp.swift; sourceTree = "<group>"; };
-		CFBC47962BFEC7F1004DE8E1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CFBC47982BFEC7F3004DE8E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CFBC479B2BFEC7F3004DE8E1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CFBC47A52BFECE55004DE8E1 /* TimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
@@ -76,7 +74,6 @@
 		CFBC47A22BFECE14004DE8E1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				CFBC47962BFEC7F1004DE8E1 /* ContentView.swift */,
 				CFBC47A72BFECE65004DE8E1 /* TimerView.swift */,
 			);
 			path = Views;
@@ -167,7 +164,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFBC47972BFEC7F1004DE8E1 /* ContentView.swift in Sources */,
 				CFBC47A62BFECE55004DE8E1 /* TimerViewModel.swift in Sources */,
 				CFBC47A82BFECE65004DE8E1 /* TimerView.swift in Sources */,
 				CFBC47952BFEC7F1004DE8E1 /* LetsGrowApp.swift in Sources */,
