@@ -8,22 +8,25 @@
 import Foundation
 import Combine
 
-
-class TimerViewModel{
+@MainActor
+class TimerViewModel: ObservableObject{
     
     //State variables
     @Published var timeLeft: Int
     @Published var isRunning: Bool
     
-    //User Input
-    var totalTime: Int
+    //User input
+    var userInput: Int //To store user's inital input (incase of reset time)
     
-    //initialize the timer -> the timer "publishes" something, and whichever function "receieves" it, will do something
-    //every 1 second
+    //Total time actually spent by the user
+    var totalUserTime: Int
+    
+    //timer
     public var timer: AnyCancellable?
     
     init(timeInput: Int) {
-        self.totalTime = timeInput
+        self.userInput = timeInput
+        self.totalUserTime = timeInput
         self.timeLeft = timeInput
         self.isRunning = false
     }
@@ -32,6 +35,8 @@ class TimerViewModel{
     //
     func startTimer(){
         isRunning = true
+        //initialize the timer -> the timer "publishes" something, and whichever function "receieves" it, will do something
+        //every 1 second
         timer = Timer.publish(every: 1, on: .main, in: .common)
             .autoconnect()
             .sink{ [weak self] _ in //"_" is used because we don't really care about any values emmited by the sink closure, we just care that the event occured
@@ -50,6 +55,12 @@ class TimerViewModel{
         timer?.cancel()
     }
     
+    func resetTimer(){
+        //Wanna ask "Are you sure you want to reset" -> needs to be implenented
+        timeLeft = userInput
+        totalUserTime = userInput
+    }
+    
     
     func decTimer(){
         if(self.timeLeft > 0){
@@ -59,6 +70,7 @@ class TimerViewModel{
             //handle what to do after the timer is done
         }
     }
+    
     
     func addMinutes(minutes: Int){
         

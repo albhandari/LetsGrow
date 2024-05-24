@@ -8,8 +8,25 @@
 import SwiftUI
 
 struct TimerView: View {
+    
+    @StateObject var timerVM = TimerViewModel(timeInput: 20)
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    
+        Text("Time Remaining \(timerVM.timeLeft)")
+        
+        Button("Start Timer") {
+            timerVM.startTimer()
+        }
+        
+        Button("Pause Timer") {
+            timerVM.pauseTimer()
+        }
+        
+        Button("Reset Timer") {
+            timerVM.resetTimer()
+        }
+        
     }
 }
 
