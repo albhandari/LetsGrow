@@ -14,6 +14,7 @@ class TimerViewModel: ObservableObject{
     //State variables
     @Published var timeLeft: Int
     @Published var isRunning: Bool
+    @Published var progress: Double
     
     //User input
     var userInput: Int //To store user's inital input (incase of reset time)
@@ -28,6 +29,7 @@ class TimerViewModel: ObservableObject{
         self.userInput = timeInput
         self.totalUserTime = timeInput
         self.timeLeft = timeInput
+        self.progress = 1.0
         self.isRunning = false
     }
     
@@ -37,7 +39,7 @@ class TimerViewModel: ObservableObject{
         isRunning = true
         //initialize the timer -> the timer "publishes" something, and whichever function "receieves" it, will do something
         //every 1 second
-        timer = Timer.publish(every: 1, on: .main, in: .common)
+        timer = Timer.publish(every: 1, on: .main, in: .common) //what happens if i spam startTimer()
             .autoconnect()
             .sink{ [weak self] _ in //"_" is used because we don't really care about any values emmited by the sink closure, we just care that the event occured
                 self?.decTimer()
@@ -59,12 +61,14 @@ class TimerViewModel: ObservableObject{
         //Wanna ask "Are you sure you want to reset" -> needs to be implenented
         timeLeft = userInput
         totalUserTime = userInput
+        progress = 1.0
     }
     
     
     func decTimer(){
         if(self.timeLeft > 0){
             self.timeLeft -= 1
+            self.progress = Double(timeLeft) / Double(totalUserTime)
         }else{
             timer?.cancel()
             //handle what to do after the timer is done

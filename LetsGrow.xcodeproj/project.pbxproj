@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CF217A2A2C01459A00F80D56 /* TimerCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF217A292C01459A00F80D56 /* TimerCircleView.swift */; };
+		CF217A2D2C01682900F80D56 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF217A2C2C01682900F80D56 /* TimerModel.swift */; };
 		CFBC47952BFEC7F1004DE8E1 /* LetsGrowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBC47942BFEC7F1004DE8E1 /* LetsGrowApp.swift */; };
 		CFBC47992BFEC7F3004DE8E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFBC47982BFEC7F3004DE8E1 /* Assets.xcassets */; };
 		CFBC479C2BFEC7F3004DE8E1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFBC479B2BFEC7F3004DE8E1 /* Preview Assets.xcassets */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CF217A292C01459A00F80D56 /* TimerCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCircleView.swift; sourceTree = "<group>"; };
+		CF217A2C2C01682900F80D56 /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
 		CFBC47912BFEC7F1004DE8E1 /* LetsGrow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LetsGrow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFBC47942BFEC7F1004DE8E1 /* LetsGrowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetsGrowApp.swift; sourceTree = "<group>"; };
 		CFBC47982BFEC7F3004DE8E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -34,6 +38,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CF217A2B2C01681600F80D56 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CF217A2C2C01682900F80D56 /* TimerModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		CFBC47882BFEC7F1004DE8E1 = {
 			isa = PBXGroup;
 			children = (
@@ -53,6 +65,7 @@
 		CFBC47932BFEC7F1004DE8E1 /* LetsGrow */ = {
 			isa = PBXGroup;
 			children = (
+				CF217A2B2C01681600F80D56 /* Models */,
 				CFBC47A42BFECE2B004DE8E1 /* Services */,
 				CFBC47A32BFECE20004DE8E1 /* ViewModels */,
 				CFBC47A22BFECE14004DE8E1 /* Views */,
@@ -75,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				CFBC47A72BFECE65004DE8E1 /* TimerView.swift */,
+				CF217A292C01459A00F80D56 /* TimerCircleView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -166,6 +180,8 @@
 			files = (
 				CFBC47A62BFECE55004DE8E1 /* TimerViewModel.swift in Sources */,
 				CFBC47A82BFECE65004DE8E1 /* TimerView.swift in Sources */,
+				CF217A2D2C01682900F80D56 /* TimerModel.swift in Sources */,
+				CF217A2A2C01459A00F80D56 /* TimerCircleView.swift in Sources */,
 				CFBC47952BFEC7F1004DE8E1 /* LetsGrowApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
