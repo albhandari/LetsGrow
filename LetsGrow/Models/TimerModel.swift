@@ -9,5 +9,12 @@ import Foundation
 
 struct TimerModel{
     var focusTime: Int
-    var breakTime: Int
+    var quickBreakTime: Int
+    var longBreakTime: Int?
+    
+    init(focusTime: Int, quickBreakTime: Int, longBreakTime: Int? = nil) {
+        self.focusTime = focusTime
+        self.quickBreakTime = quickBreakTime
+        self.longBreakTime = longBreakTime
+    }
 }
