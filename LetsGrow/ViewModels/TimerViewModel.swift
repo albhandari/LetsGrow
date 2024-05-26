@@ -8,30 +8,34 @@
 import Foundation
 import Combine
 
+
+//This class will be as generic as possible
+//It will serve as only starting a timer
 @MainActor
 class TimerViewModel: ObservableObject{
     
     //State variables
     @Published var timeLeft: Int
-    @Published var isRunning: Bool //conside
+    @Published var isRunning: Bool
     @Published var progress: Double
+    @Published var timerFinished: Bool
     
     //User input
-    var initialTime: Int //To store user's inital input (incase of reset time)
-    var totalTime: Int = 0 //Actual Total time of the timer
-    
-    //Total time actually spent by the user
-    var totalUserTime: Int
+    var initialTime: Int //Intial time the timer will run for
+    var finalTime: Int = 0 //Total time actually ran by the timer
+    var currentTime: Int //Total time the timer is currently running for
     
     //timer
     public var timer: AnyCancellable?
     
     init(initialTime: Int) {
         self.initialTime = initialTime
-        self.totalUserTime = initialTime
+        self.currentTime = initialTime
         self.timeLeft = initialTime
+        
         self.progress = 1.0
         self.isRunning = false
+        self.timerFinished = false
     }
     
 
@@ -61,7 +65,7 @@ class TimerViewModel: ObservableObject{
     func resetTimer(){
         //Wanna ask "Are you sure you want to reset" -> needs to be implenented
         timeLeft = initialTime
-        totalUserTime = initialTime
+        currentTime = initialTime
         progress = 1.0
     }
     
@@ -69,7 +73,7 @@ class TimerViewModel: ObservableObject{
     func decTimer(){
         if(self.timeLeft > 0){
             self.timeLeft -= 1
-            self.progress = Double(timeLeft) / Double(totalUserTime)
+            self.progress = Double(timeLeft) / Double(currentTime)
         }else{
             endTimer()
             //handle what to do after the timer is done
