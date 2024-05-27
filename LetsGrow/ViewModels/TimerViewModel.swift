@@ -41,6 +41,10 @@ class TimerViewModel: ObservableObject{
 
     
     func startTimer(){
+        //guard statement to prevent the spamming "start timer"
+        guard !isRunning else {
+            return
+        }
         isRunning = true
         //initialize the timer -> the timer "publishes" something, and whichever function "receieves" it, will do something
         //every 1 second
@@ -53,8 +57,8 @@ class TimerViewModel: ObservableObject{
     
     //what to do when timer ends
     func endTimer(){
-        isRunning = false
-        timer?.cancel()
+        timerFinished = true
+        resetTimer()
     }
     
     func pauseTimer(){
@@ -64,6 +68,11 @@ class TimerViewModel: ObservableObject{
     
     func resetTimer(){
         //Wanna ask "Are you sure you want to reset" -> needs to be implenented
+        if isRunning {
+            pauseTimer()
+        }
+        
+        timerFinished = false
         timeLeft = initialTime
         currentTime = initialTime
         progress = 1.0
@@ -73,6 +82,7 @@ class TimerViewModel: ObservableObject{
     func decTimer(){
         if(self.timeLeft > 0){
             self.timeLeft -= 1
+            self.finalTime += 1
             self.progress = Double(timeLeft) / Double(currentTime)
         }else{
             endTimer()
@@ -92,6 +102,7 @@ class TimerViewModel: ObservableObject{
     
 }
 
+//start random timer
 
 /**
 Stuff to handle:
