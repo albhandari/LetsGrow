@@ -16,7 +16,7 @@ struct TimerView: View {
         
         ZStack{
             
-            Text("Time Remaining \(timerVM.timeLeft)")
+            Text("Time Remaining \(timerVM.formattedTime)")
             
             Circle()
                 .stroke(lineWidth: 20)

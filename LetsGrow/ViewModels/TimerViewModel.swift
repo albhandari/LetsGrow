@@ -15,6 +15,7 @@ import Combine
 class TimerViewModel: ObservableObject{
     
     //State variables
+    @Published var formattedTime: String
     @Published var timeLeft: Int
     @Published var isRunning: Bool
     @Published var progress: Double
@@ -30,6 +31,7 @@ class TimerViewModel: ObservableObject{
     
     init(initialTime: Int) {
         self.initialTime = initialTime
+        self.formattedTime = String(format: "%02d:%02d", initialTime/60, initialTime%60)
         self.currentTime = initialTime
         self.timeLeft = initialTime
         
@@ -46,9 +48,8 @@ class TimerViewModel: ObservableObject{
             return
         }
         isRunning = true
-        //initialize the timer -> the timer "publishes" something, and whichever function "receieves" it, will do something
-        //every 1 second
-        timer = Timer.publish(every: 1, on: .main, in: .common) //what happens if i spam startTimer()
+        //initialize the timer -> the timer "publishes" something, and whichever function "receieves" it, will do something every 1 second
+        timer = Timer.publish(every: 1, on: .main, in: .common)
             .autoconnect()
             .sink{ [weak self] _ in //"_" is used because we don't really care about any values emmited by the sink closure, we just care that the event occured
                 self?.decTimer()
@@ -73,6 +74,7 @@ class TimerViewModel: ObservableObject{
         }
         
         timerFinished = false
+        formattedTime = timeFormatter(seconds: initialTime)
         timeLeft = initialTime
         currentTime = initialTime
         progress = 1.0
@@ -82,6 +84,7 @@ class TimerViewModel: ObservableObject{
     func decTimer(){
         if(self.timeLeft > 0){
             self.timeLeft -= 1
+            self.formattedTime = timeFormatter(seconds: timeLeft)
             self.finalTime += 1
             self.progress = Double(timeLeft) / Double(currentTime)
         }else{
@@ -95,7 +98,9 @@ class TimerViewModel: ObservableObject{
         
     }
     
-    
+    func timeFormatter(seconds: Int) -> String{
+        return String(format: "%02d:%02d", seconds/60, seconds%60)
+    }
     
     
     
