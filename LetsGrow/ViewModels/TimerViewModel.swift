@@ -47,6 +47,7 @@ class TimerViewModel: ObservableObject{
         guard !isRunning else {
             return
         }
+        timerFinished = false
         isRunning = true
         //initialize the timer -> the timer "publishes" something, and whichever function "receieves" it, will do something every 1 second
         timer = Timer.publish(every: 1, on: .main, in: .common)
