@@ -1,13 +1,13 @@
 //
-//  TimerModel.swift
+//  TimeModel.swift
 //  LetsGrow
 //
-//  Created by Alex Bhandari on 5/24/24.
+//  Created by Alex Bhandari on 5/30/24.
 //
 
 import Foundation
 
-struct TimerModel{
+struct TimeModel{
     var focusTime: Int
     var quickBreakTime: Int
     var longBreakTime: Int?
