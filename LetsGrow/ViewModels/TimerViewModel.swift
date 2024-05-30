@@ -14,6 +14,9 @@ import Combine
 @MainActor
 class TimerViewModel: ObservableObject{
     
+    var modes = [TimerMode.focusMode, TimerMode.quickBreakMode, TimerMode.focusMode, TimerMode.longBreakMode]
+    var currentMode = TimerMode.focusMode
+    
     //State variables
     @Published var formattedTime: String
     @Published var timeLeft: Int
@@ -29,7 +32,7 @@ class TimerViewModel: ObservableObject{
     //timer
     public var timer: AnyCancellable?
     
-    init(initialTime: Int) {
+    init(timeModel: TimeModel, initialTime: Int) {
         self.initialTime = initialTime
         self.formattedTime = String(format: "%02d:%02d", initialTime/60, initialTime%60)
         self.currentTime = initialTime
@@ -38,6 +41,12 @@ class TimerViewModel: ObservableObject{
         self.progress = 1.0
         self.isRunning = false
         self.timerFinished = false
+    }
+    
+    enum TimerMode {
+        case focusMode
+        case quickBreakMode
+        case longBreakMode
     }
     
 
@@ -102,6 +111,8 @@ class TimerViewModel: ObservableObject{
     func timeFormatter(seconds: Int) -> String{
         return String(format: "%02d:%02d", seconds/60, seconds%60)
     }
+    
+    
     
     
     

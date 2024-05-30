@@ -17,4 +17,5 @@ struct TimeModel{
         self.quickBreakTime = quickBreakTime
         self.longBreakTime = longBreakTime
     }
+    
 }
