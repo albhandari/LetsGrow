@@ -18,11 +18,11 @@ class TimerViewModel: ObservableObject{
     var currentMode = 0 //0: Focus Timer, 1: Quick Break Timer, 2: Focus Timer, 3: Long Break Timer
     
     //State variables
-    @Published var displayTime: String
-    @Published var timeLeft: Int
-    @Published var isRunning: Bool
-    @Published var progress: Double
-    @Published var timerFinished: Bool
+    @Published var displayTime: String //00:00 format for the view
+    @Published var timeLeft: Int //time left of the timer in seconds (used for displayTime)
+    @Published var isRunning: Bool //current state of the timer (paused or unpaused)
+    @Published var progress: Double //represents the percent of the timer
+    @Published var timerFinished: Bool //state of the timer wether it's finished or not
     
     //User input
     var initialTime: Int //Intial time the timer will run for
@@ -32,7 +32,10 @@ class TimerViewModel: ObservableObject{
     //timer
     public var timer: AnyCancellable?
     
+    var timeModel: TimeModel
+    
     init(timeModel: TimeModel) {
+        self.timeModel = timeModel
         initialTime = timeModel.focusTime
         displayTime = String(format: "%02d:%02d", timeModel.focusTime/60, timeModel.focusTime%60)
         currentTime = timeModel.focusTime
@@ -49,7 +52,27 @@ class TimerViewModel: ObservableObject{
         case longBreakMode
     }
     
-
+    func changeTimer(){
+        if currentMode == 3{
+            currentMode = 0
+        }
+        else{
+            currentMode += 1
+        }
+        switch modes[currentMode]{
+        case .focusMode:
+            initialTime = timeModel.focusTime
+            print("Focus Time")
+        case .quickBreakMode:
+            initialTime = timeModel.quickBreakTime ?? timeModel.focusTime
+            print("Quick Break Time")
+        case .longBreakMode:
+            initialTime = timeModel.longBreakTime ?? timeModel.focusTime
+            print("Long Break Time")
+        }
+        
+    }
+    
     
     func startTimer(){
         //guard statement to prevent the spamming "start timer"
@@ -71,6 +94,7 @@ class TimerViewModel: ObservableObject{
     func endTimer(){
         timerFinished = true
         resetTimer()
+        changeTimer()
     }
     
     func pauseTimer(){
@@ -95,11 +119,10 @@ class TimerViewModel: ObservableObject{
     func decTimer(){
         if(timeLeft > 0){
             timeLeft -= 1
-            displayTime = timeFormatter(seconds: timeLeft)
             finalTime += 1
+            displayTime = timeFormatter(seconds: timeLeft)
             progress = Double(timeLeft) / Double(currentTime)
         }else{
-            
             endTimer()
             //handle what to do after the timer is done
         }

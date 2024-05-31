@@ -9,14 +9,14 @@ import SwiftUI
 
 struct TimerView: View {
     
-    @StateObject var timerVM = TimerViewModel(initialTime: 100)
+    @StateObject var timerVM = TimerViewModel(timeModel: TimeModel(focusTime: 4, quickBreakTime: 2, longBreakTime: 3))
 
     
     var body: some View {
         
         ZStack{
             
-            Text("Time Remaining \(timerVM.formattedTime)")
+            Text("Time Remaining \(timerVM.displayTime)")
             
             Circle()
                 .stroke(lineWidth: 20)

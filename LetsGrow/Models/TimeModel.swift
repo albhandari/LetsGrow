@@ -18,4 +18,4 @@ struct TimeModel{
         self.longBreakTime = longBreakTime
     }
     
-}
+}   
