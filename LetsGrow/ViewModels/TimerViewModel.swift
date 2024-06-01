@@ -93,8 +93,8 @@ class TimerViewModel: ObservableObject{
     //what to do when timer ends
     func endTimer(){
         timerFinished = true
-        resetTimer()
         changeTimer()
+        resetTimer()
     }
     
     func pauseTimer(){
