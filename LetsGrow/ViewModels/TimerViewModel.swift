@@ -14,12 +14,15 @@ import Combine
 @MainActor
 class TimerViewModel: ObservableObject{
     
+    var modes = [TimerMode.focusMode, TimerMode.quickBreakMode, TimerMode.focusMode, TimerMode.longBreakMode]
+    var currentMode = 0 //0: Focus Timer, 1: Quick Break Timer, 2: Focus Timer, 3: Long Break Timer
+    
     //State variables
-    @Published var formattedTime: String
-    @Published var timeLeft: Int
-    @Published var isRunning: Bool
-    @Published var progress: Double
-    @Published var timerFinished: Bool
+    @Published var displayTime: String //00:00 format for the view
+    @Published var timeLeft: Int //time left of the timer in seconds (used for displayTime)
+    @Published var isRunning: Bool //current state of the timer (paused or unpaused)
+    @Published var progress: Double //represents the percent of the timer
+    @Published var timerFinished: Bool //state of the timer wether it's finished or not
     
     //User input
     var initialTime: Int //Intial time the timer will run for
@@ -29,24 +32,54 @@ class TimerViewModel: ObservableObject{
     //timer
     public var timer: AnyCancellable?
     
-    init(initialTime: Int) {
-        self.initialTime = initialTime
-        self.formattedTime = String(format: "%02d:%02d", initialTime/60, initialTime%60)
-        self.currentTime = initialTime
-        self.timeLeft = initialTime
+    var timeModel: TimeModel
+    
+    init(timeModel: TimeModel) {
+        self.timeModel = timeModel
+        initialTime = timeModel.focusTime
+        displayTime = String(format: "%02d:%02d", timeModel.focusTime/60, timeModel.focusTime%60)
+        currentTime = timeModel.focusTime
+        timeLeft = timeModel.focusTime
         
-        self.progress = 1.0
-        self.isRunning = false
-        self.timerFinished = false
+        progress = 1.0
+        isRunning = false
+        timerFinished = false
     }
     
-
+    enum TimerMode {
+        case focusMode
+        case quickBreakMode
+        case longBreakMode
+    }
+    
+    func changeTimer(){
+        if currentMode == 3{
+            currentMode = 0
+        }
+        else{
+            currentMode += 1
+        }
+        switch modes[currentMode]{
+        case .focusMode:
+            initialTime = timeModel.focusTime
+            print("Focus Time")
+        case .quickBreakMode:
+            initialTime = timeModel.quickBreakTime ?? timeModel.focusTime
+            print("Quick Break Time")
+        case .longBreakMode:
+            initialTime = timeModel.longBreakTime ?? timeModel.focusTime
+            print("Long Break Time")
+        }
+        
+    }
+    
     
     func startTimer(){
         //guard statement to prevent the spamming "start timer"
         guard !isRunning else {
             return
         }
+        
         timerFinished = false
         isRunning = true
         //initialize the timer -> the timer "publishes" something, and whichever function "receieves" it, will do something every 1 second
@@ -60,6 +93,7 @@ class TimerViewModel: ObservableObject{
     //what to do when timer ends
     func endTimer(){
         timerFinished = true
+        changeTimer()
         resetTimer()
     }
     
@@ -75,7 +109,7 @@ class TimerViewModel: ObservableObject{
         }
         
         timerFinished = false
-        formattedTime = timeFormatter(seconds: initialTime)
+        displayTime = timeFormatter(seconds: initialTime)
         timeLeft = initialTime
         currentTime = initialTime
         progress = 1.0
@@ -83,11 +117,11 @@ class TimerViewModel: ObservableObject{
     
     
     func decTimer(){
-        if(self.timeLeft > 0){
-            self.timeLeft -= 1
-            self.formattedTime = timeFormatter(seconds: timeLeft)
-            self.finalTime += 1
-            self.progress = Double(timeLeft) / Double(currentTime)
+        if(timeLeft > 0){
+            timeLeft -= 1
+            finalTime += 1
+            displayTime = timeFormatter(seconds: timeLeft)
+            progress = Double(timeLeft) / Double(currentTime)
         }else{
             endTimer()
             //handle what to do after the timer is done
@@ -106,6 +140,8 @@ class TimerViewModel: ObservableObject{
     
     
     
+    
+    
 }
 
 //start random timer
@@ -120,6 +156,9 @@ Stuff to handle:
     - for example: maybe if the user pauses, is when you add to total timer with the total time elapsed from initial
     - for example: when the the timer fully ends, is when u add the total time elapsed
     - MAKE SURE TO CONSIDER BOTTLENECKS THO: what if the user closes phone, add extra time, etc.
+ 
+ - If the user decides to start a timer (associated with nothing), when the timer finishes, a pop-up will appear asking, take a break
+    or reset timer"
  
  
  Thing to consider for now:
