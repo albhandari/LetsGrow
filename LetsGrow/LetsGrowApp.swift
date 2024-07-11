@@ -14,7 +14,23 @@ struct LetsGrowApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ToDoView()
+            TabView{
+                HomeView()
+                    .tabItem{
+                        Label("Home", systemImage: "house")
+                    }
+                
+                ToDoView()
+                    .tabItem{
+                        Label("ToDo", systemImage: "book")
+                    }
+                
+                Text("Settings")
+                    .tabItem{
+                        Label("Settings", systemImage: "gear")
+                    }
+                
+            }
         }
         .environmentObject(store)
     }

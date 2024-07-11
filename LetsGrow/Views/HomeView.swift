@@ -9,9 +9,8 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
-        TabView{
-            Text("Home")
-        }
+        
+        Text("Home")
     }
 }
 

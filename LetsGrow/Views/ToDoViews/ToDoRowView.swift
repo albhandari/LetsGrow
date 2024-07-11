@@ -27,7 +27,7 @@ struct ToDoRowView: View {
                 .padding()
             
         }
-        .background(Color(Color.appBlue.opacity(0.7)))
+        .background(Color(Color.appBlue.opacity(0.5)))
         .clipShape(RoundedRectangle(cornerSize: CGSize(width: 5, height: 100)))
         
         

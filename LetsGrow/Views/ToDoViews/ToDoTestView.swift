@@ -46,64 +46,58 @@ struct ToDoTestView: View {
                 .tint(.white)
             }
             .padding()
-            Spacer()
             
             
         }
         .background(Color(Color.appBlue))
-        .sheet(isPresented: $toDoVM.isShowingSheet, content: {
-            VStack{
-                HStack{
-                    Button(action: toDoVM.decDate){
-                        Image(systemName: "arrow.backward")
-                            .foregroundStyle(Color(Color.appBlue))
-                            .padding(5)
-                            .bold()
-                    }
-                    .buttonStyle(.bordered)
-                    .tint(.white)
-                    
-                    Button(action: {
-                        toDoVM.updateDate(date: toDoVM.today)
-                    }){
-                        Text("Today")
-                            .foregroundStyle(Color(Color.appBlue))
-                            .padding(5)
-                            .bold()
-                    }
-                    .buttonStyle(.bordered)
-                    .tint(.white)
-                    
-                    Button(action: toDoVM.incDate){
-                        Image(systemName: "arrow.forward")
-                            .foregroundStyle(Color(Color.appBlue))
-                            .padding(5)
-                            .bold()
-                    }
-                    .buttonStyle(.bordered)
-                    .tint(.white)
+        VStack{
+            HStack{
+                Button(action: toDoVM.decDate){
+                    Image(systemName: "arrow.backward")
+                        .foregroundStyle(Color(Color.appBlue))
+                        .padding(5)
+                        .bold()
                 }
-                
-                Text("My Tasks")
-                    .font(.system(size: 25))
-                    .bold()
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
-                
-                ScrollView(.vertical){
-                    ForEach(toDoVM.toDos){ toDo in
-                        ToDoRowView(toDo: toDo)
-                            .padding(.horizontal)
-                    }
-
-                }
-                
+                .buttonStyle(.bordered)
+                .tint(.white)
                 Spacer()
+                Button(action: {
+                    toDoVM.updateDate(date: toDoVM.today)
+                }){
+                    Text("Today")
+                        .foregroundStyle(Color(Color.appBlue))
+                        .padding(5)
+                        .bold()
+                }
+                .buttonStyle(.bordered)
+                .tint(.white)
+                Spacer()
+                Button(action: toDoVM.incDate){
+                    Image(systemName: "arrow.forward")
+                        .foregroundStyle(Color(Color.appBlue))
+                        .padding(5)
+                        .bold()
+                }
+                .buttonStyle(.bordered)
+                .tint(.white)
             }
-            .presentationDetents([.fraction(0.75), .fraction(0.99)])
-            .interactiveDismissDisabled()
-            .presentationBackgroundInteraction(.enabled)
-        })
+            
+            Text("My Tasks")
+                .font(.system(size: 25))
+                .bold()
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+            
+            ScrollView(.vertical){
+                ForEach(toDoVM.toDos){ toDo in
+                    ToDoRowView(toDo: toDo)
+                        .padding(.horizontal)
+                }
+
+            }
+            
+            Spacer()
+        }
         
     }
 }
