@@ -22,6 +22,7 @@
 		CFDAADC12C2BA25D008B58D9 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAADC02C2BA25D008B58D9 /* Store.swift */; };
 		CFDF9DAB2C3E092D009152B5 /* ToDoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDF9DAA2C3E092D009152B5 /* ToDoViewModel.swift */; };
 		CFDF9DAD2C3E2FAB009152B5 /* ToDoRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDF9DAC2C3E2FAB009152B5 /* ToDoRowView.swift */; };
+		CFE3CA2A2C40657800DFFC80 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE3CA292C40657800DFFC80 /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		CFDAADC02C2BA25D008B58D9 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		CFDF9DAA2C3E092D009152B5 /* ToDoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoViewModel.swift; sourceTree = "<group>"; };
 		CFDF9DAC2C3E2FAB009152B5 /* ToDoRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoRowView.swift; sourceTree = "<group>"; };
+		CFE3CA292C40657800DFFC80 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 				CFBC47A72BFECE65004DE8E1 /* TimerView.swift */,
 				CF217A292C01459A00F80D56 /* TimerCircleView.swift */,
 				CFBDBE482C08F739008C46EE /* TimersListView.swift */,
+				CFE3CA292C40657800DFFC80 /* HomeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -227,6 +230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFDAADBE2C2B9D94008B58D9 /* ToDoModel.swift in Sources */,
+				CFE3CA2A2C40657800DFFC80 /* HomeView.swift in Sources */,
 				CFBC47A62BFECE55004DE8E1 /* TimerViewModel.swift in Sources */,
 				CFBC47A82BFECE65004DE8E1 /* TimerView.swift in Sources */,
 				CFDF9DAB2C3E092D009152B5 /* ToDoViewModel.swift in Sources */,
