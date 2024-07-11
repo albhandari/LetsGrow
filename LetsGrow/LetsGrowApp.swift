@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct LetsGrowApp: App {
+    
+    @StateObject var store = TestStoreImpl()
+    
     var body: some Scene {
         WindowGroup {
-            TimerView()
+            ToDoView()
         }
+        .environmentObject(store)
     }
 }

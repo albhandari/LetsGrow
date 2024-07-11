@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		CF217A2A2C01459A00F80D56 /* TimerCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF217A292C01459A00F80D56 /* TimerCircleView.swift */; };
+		CF72C1E42C3F5F0000B7CB40 /* ToDoTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF72C1E32C3F5F0000B7CB40 /* ToDoTestView.swift */; };
+		CF80CB642C31EA7800CA2128 /* ToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF80CB632C31EA7800CA2128 /* ToDoView.swift */; };
+		CF80CB672C32163A00CA2128 /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF80CB662C32163A00CA2128 /* CustomColors.swift */; };
 		CFBC47952BFEC7F1004DE8E1 /* LetsGrowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBC47942BFEC7F1004DE8E1 /* LetsGrowApp.swift */; };
 		CFBC47992BFEC7F3004DE8E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFBC47982BFEC7F3004DE8E1 /* Assets.xcassets */; };
 		CFBC479C2BFEC7F3004DE8E1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFBC479B2BFEC7F3004DE8E1 /* Preview Assets.xcassets */; };
@@ -17,10 +20,15 @@
 		CFBDBE4B2C090003008C46EE /* TimeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBDBE4A2C090003008C46EE /* TimeModel.swift */; };
 		CFDAADBE2C2B9D94008B58D9 /* ToDoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAADBD2C2B9D94008B58D9 /* ToDoModel.swift */; };
 		CFDAADC12C2BA25D008B58D9 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAADC02C2BA25D008B58D9 /* Store.swift */; };
+		CFDF9DAB2C3E092D009152B5 /* ToDoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDF9DAA2C3E092D009152B5 /* ToDoViewModel.swift */; };
+		CFDF9DAD2C3E2FAB009152B5 /* ToDoRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDF9DAC2C3E2FAB009152B5 /* ToDoRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CF217A292C01459A00F80D56 /* TimerCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCircleView.swift; sourceTree = "<group>"; };
+		CF72C1E32C3F5F0000B7CB40 /* ToDoTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTestView.swift; sourceTree = "<group>"; };
+		CF80CB632C31EA7800CA2128 /* ToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoView.swift; sourceTree = "<group>"; };
+		CF80CB662C32163A00CA2128 /* CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
 		CFBC47912BFEC7F1004DE8E1 /* LetsGrow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LetsGrow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFBC47942BFEC7F1004DE8E1 /* LetsGrowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetsGrowApp.swift; sourceTree = "<group>"; };
 		CFBC47982BFEC7F3004DE8E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -31,6 +39,8 @@
 		CFBDBE4A2C090003008C46EE /* TimeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeModel.swift; sourceTree = "<group>"; };
 		CFDAADBD2C2B9D94008B58D9 /* ToDoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoModel.swift; sourceTree = "<group>"; };
 		CFDAADC02C2BA25D008B58D9 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		CFDF9DAA2C3E092D009152B5 /* ToDoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoViewModel.swift; sourceTree = "<group>"; };
+		CFDF9DAC2C3E2FAB009152B5 /* ToDoRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +63,24 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		CF72C1E52C3F5FEA00B7CB40 /* ToDoViews */ = {
+			isa = PBXGroup;
+			children = (
+				CFDF9DAC2C3E2FAB009152B5 /* ToDoRowView.swift */,
+				CF80CB632C31EA7800CA2128 /* ToDoView.swift */,
+				CF72C1E32C3F5F0000B7CB40 /* ToDoTestView.swift */,
+			);
+			path = ToDoViews;
+			sourceTree = "<group>";
+		};
+		CF80CB652C32161700CA2128 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CF80CB662C32163A00CA2128 /* CustomColors.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		CFBC47882BFEC7F1004DE8E1 = {
 			isa = PBXGroup;
 			children = (
@@ -72,6 +100,7 @@
 		CFBC47932BFEC7F1004DE8E1 /* LetsGrow */ = {
 			isa = PBXGroup;
 			children = (
+				CF80CB652C32161700CA2128 /* Extensions */,
 				CFDAADBF2C2BA16F008B58D9 /* Store */,
 				CF217A2B2C01681600F80D56 /* Models */,
 				CFBC47A42BFECE2B004DE8E1 /* Services */,
@@ -95,6 +124,7 @@
 		CFBC47A22BFECE14004DE8E1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CF72C1E52C3F5FEA00B7CB40 /* ToDoViews */,
 				CFBC47A72BFECE65004DE8E1 /* TimerView.swift */,
 				CF217A292C01459A00F80D56 /* TimerCircleView.swift */,
 				CFBDBE482C08F739008C46EE /* TimersListView.swift */,
@@ -106,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				CFBC47A52BFECE55004DE8E1 /* TimerViewModel.swift */,
+				CFDF9DAA2C3E092D009152B5 /* ToDoViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -198,10 +229,15 @@
 				CFDAADBE2C2B9D94008B58D9 /* ToDoModel.swift in Sources */,
 				CFBC47A62BFECE55004DE8E1 /* TimerViewModel.swift in Sources */,
 				CFBC47A82BFECE65004DE8E1 /* TimerView.swift in Sources */,
+				CFDF9DAB2C3E092D009152B5 /* ToDoViewModel.swift in Sources */,
 				CFDAADC12C2BA25D008B58D9 /* Store.swift in Sources */,
+				CFDF9DAD2C3E2FAB009152B5 /* ToDoRowView.swift in Sources */,
 				CFBDBE4B2C090003008C46EE /* TimeModel.swift in Sources */,
+				CF72C1E42C3F5F0000B7CB40 /* ToDoTestView.swift in Sources */,
 				CF217A2A2C01459A00F80D56 /* TimerCircleView.swift in Sources */,
+				CF80CB672C32163A00CA2128 /* CustomColors.swift in Sources */,
 				CFBDBE492C08F739008C46EE /* TimersListView.swift in Sources */,
+				CF80CB642C31EA7800CA2128 /* ToDoView.swift in Sources */,
 				CFBC47952BFEC7F1004DE8E1 /* LetsGrowApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -15,7 +15,7 @@ protocol Store: ObservableObject {
     
 }
 
-class StoreImpl: ObservableObject, Store{
+class TestStoreImpl: ObservableObject, Store{
     
     private var toDo: ToDo?
     
@@ -24,7 +24,7 @@ class StoreImpl: ObservableObject, Store{
         return ToDo(
                 title: "Test ToDo",
                 description: "This is a test ToDo item.",
-                dueDate: Date(), // You can customize this date as needed
+                dueDate: Date(),
                 completed: false
             )
     }
