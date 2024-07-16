@@ -62,7 +62,7 @@ struct ToDoTestView: View {
                 .tint(.white)
                 Spacer()
                 Button(action: {
-                    toDoVM.updateDate(date: toDoVM.today)
+                    toDoVM.updateDate(date: Date())
                 }){
                     Text("Today")
                         .foregroundStyle(Color(Color.appBlue))

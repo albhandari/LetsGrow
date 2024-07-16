@@ -9,18 +9,21 @@ import Foundation
 
 class ToDoViewModel: ObservableObject{
     
-    @Published var isShowingSheet = true
-    
-    @Published var today: Date = Date.now
     @Published var currentDate: Date = Date.now
-    
-    @Published var toDos: [ToDo] = []
     @Published var currentToDo: [ToDo] = []
     
-    init(today: Date, currentDate: Date) {
-        self.today = today
+    @Published var selectedDate: Date = Date()
+    @Published var toDoTitle: String = ""
+    @Published var toDoDescription: String = ""
+    
+    @Published var isShowingSheet = false
+    
+    
+    var toDos: [ToDo] = []
+    
+    
+    init(currentDate: Date) {
         self.currentDate = currentDate
-        
         self.updateSampleToDos()
     }
     
@@ -32,13 +35,13 @@ class ToDoViewModel: ObservableObject{
     func incDate(){ //Incriment currentDate by 1 day or 86400 seconds
         self.currentDate = Date(timeInterval: 86400, since: self.currentDate)
         self.updateCurrentToDos()
-        print(currentDate)
+        //print(currentDate)
     }
     
     func decDate(){ //Decrement currentDate by 1 day or 86400 seconds
         self.currentDate = Date(timeInterval: -86400, since: self.currentDate)
         self.updateCurrentToDos()
-        print(currentDate)
+        //print(currentDate)
     }
     
     func updateDate(date: Date) -> Void{ //update currentDate by specified date
@@ -80,6 +83,37 @@ class ToDoViewModel: ObservableObject{
 
         toDos.append(contentsOf: sampleTodos)
         self.updateCurrentToDos()
+    }
+    
+    func toggleSheet(){
+        self.isShowingSheet.toggle()
+    }
+    
+    func addToDo(){
+        //Suggestions:
+        //1. When user adds a new task, we redirect them to the Date() that the task was added to
+        //2. make sure to add a edge case to check for empty strings
+        
+        let userInput = ToDo(
+            title: self.toDoTitle,
+            description: self.toDoDescription,
+            dueDate: self.selectedDate,
+            completed: false
+        )
+        self.toDos.append(userInput)
+        print(selectedDate)
+        
+        self.updateDate(date: self.selectedDate)
+        
+        //once user adds new task, reset these fields
+        self.toDoTitle = ""
+        self.toDoDescription = ""
+        self.selectedDate = Date()
+        toggleSheet()
+    }
+    
+    func removeToDo(){
+        
     }
     
     

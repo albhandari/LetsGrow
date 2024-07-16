@@ -11,6 +11,7 @@
 		CF72C1E42C3F5F0000B7CB40 /* ToDoTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF72C1E32C3F5F0000B7CB40 /* ToDoTestView.swift */; };
 		CF80CB642C31EA7800CA2128 /* ToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF80CB632C31EA7800CA2128 /* ToDoView.swift */; };
 		CF80CB672C32163A00CA2128 /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF80CB662C32163A00CA2128 /* CustomColors.swift */; };
+		CF863C802C42EA8D00E54EC8 /* CustomDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF863C7F2C42EA8D00E54EC8 /* CustomDate.swift */; };
 		CFBC47952BFEC7F1004DE8E1 /* LetsGrowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBC47942BFEC7F1004DE8E1 /* LetsGrowApp.swift */; };
 		CFBC47992BFEC7F3004DE8E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFBC47982BFEC7F3004DE8E1 /* Assets.xcassets */; };
 		CFBC479C2BFEC7F3004DE8E1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFBC479B2BFEC7F3004DE8E1 /* Preview Assets.xcassets */; };
@@ -30,6 +31,7 @@
 		CF72C1E32C3F5F0000B7CB40 /* ToDoTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTestView.swift; sourceTree = "<group>"; };
 		CF80CB632C31EA7800CA2128 /* ToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoView.swift; sourceTree = "<group>"; };
 		CF80CB662C32163A00CA2128 /* CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
+		CF863C7F2C42EA8D00E54EC8 /* CustomDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDate.swift; sourceTree = "<group>"; };
 		CFBC47912BFEC7F1004DE8E1 /* LetsGrow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LetsGrow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFBC47942BFEC7F1004DE8E1 /* LetsGrowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetsGrowApp.swift; sourceTree = "<group>"; };
 		CFBC47982BFEC7F3004DE8E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				CF80CB662C32163A00CA2128 /* CustomColors.swift */,
+				CF863C7F2C42EA8D00E54EC8 /* CustomDate.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 				CFDAADBE2C2B9D94008B58D9 /* ToDoModel.swift in Sources */,
 				CFE3CA2A2C40657800DFFC80 /* HomeView.swift in Sources */,
 				CFBC47A62BFECE55004DE8E1 /* TimerViewModel.swift in Sources */,
+				CF863C802C42EA8D00E54EC8 /* CustomDate.swift in Sources */,
 				CFBC47A82BFECE65004DE8E1 /* TimerView.swift in Sources */,
 				CFDF9DAB2C3E092D009152B5 /* ToDoViewModel.swift in Sources */,
 				CFDAADC12C2BA25D008B58D9 /* Store.swift in Sources */,

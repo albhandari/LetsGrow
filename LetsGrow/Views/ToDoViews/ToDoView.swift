@@ -13,6 +13,7 @@ struct ToDoView: View {
     @EnvironmentObject var store: TestStoreImpl
     
     
+    
     var body: some View {
         VStack{
             VStack{
@@ -39,7 +40,7 @@ struct ToDoView: View {
                             .foregroundStyle(Color(Color.white))
                     }
                     Spacer()
-                    Button(action: toDoVM.updateSampleToDos){
+                    Button(action: toDoVM.toggleSheet){
                         Text("Add To Do")
                             .foregroundStyle(Color(Color.white))
                             .padding(5)
@@ -65,7 +66,7 @@ struct ToDoView: View {
                     Spacer()
                     
                     Button(action: {
-                        toDoVM.updateDate(date: toDoVM.today)
+                        toDoVM.updateDate(date: Date())
                     }){
                         Text("Today")
                             .foregroundStyle(Color(Color.appBlue))
@@ -103,14 +104,54 @@ struct ToDoView: View {
                 Spacer()
             }
         }
+        .sheet(isPresented: $toDoVM.isShowingSheet, content: {
+            
+            
+            DatePicker(
+                "Add ToDo",
+                selection: $toDoVM.selectedDate,
+                displayedComponents: [.date]
+            )
+            .datePickerStyle(.graphical)
+            .padding(.top)
+            .tint(Color.appBlue)
+            
+            TextField("Task Title", text: $toDoVM.toDoTitle)
+                .textFieldStyle(.roundedBorder)
+                .padding([.horizontal, .bottom])
+    
+            TextField("Task Description", text: $toDoVM.toDoDescription, axis: .vertical)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding(.horizontal)
+                .lineLimit(3, reservesSpace: true)
+            
+            Button(action: {
+                toDoVM.addToDo()
+            }){
+                Text("Add Task")
+                    .foregroundStyle(Color(Color.white))
+                    .padding(5)
+                    .bold()
+                    .frame(maxWidth: . infinity)
+            }
+            .background(Color.appBlue)
+            .clipShape(RoundedRectangle(cornerRadius: 10.0))
+            .buttonStyle(.bordered)
+            .padding()
+            
+            
+            
+            
+            
+            
+            Spacer()
+            
+            
+            .presentationDetents([.fraction(0.82), .fraction(0.99)])
+        })
         
     }
 }
-
-extension ToDoView {
-    func addToDo() -> Void {}
-}
-
 
 
 #Preview {
