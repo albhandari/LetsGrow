@@ -1,0 +1,34 @@
+# --- macOS ---
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# --- Xcode ---
+build/
+DerivedData/
+*.hmap
+*.ipa
+*.playground.shared_data
+*.xcuserstate
+project.xcworkspace/contents.xcworkspacedata
+project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+
+# --- User-Specific Xcode files ---
+# (Keeps your personal window layout out of the repo)
+xcuserdata/
+
+# --- Swift Package Manager ---
+.build/
+.swiftpm/
+Packages/
+Package.resolved
+
+# --- Firebase & Secrets ---
+# DO NOT commit your raw API keys. 
+# We will handle these via a Secrets.plist or Environment Variables later.
+Secrets.plist
+GoogleService-Info.plist
+
+# --- Misc ---
+*.swp
+*.lock
