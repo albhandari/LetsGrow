@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct LetsGrowApp: App {
+    
+    @State private var appStore = AppStore()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            BrainstormView()
+                .environment(appStore)
         }
     }
 }

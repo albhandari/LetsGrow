@@ -6,7 +6,7 @@ struct BrainstormView: View {
     @Environment(AppStore.self) private var appStore
     
     // 2. Local State (Managed by our new ViewModel)
-    @State private var viewModel = BrainstormViewModel(aiProvider: MockAIProvider())
+    @State private var viewModel = BrainstormViewModel(aiProvider: OpenAIProvider())
     
     var body: some View {
         NavigationStack {
