@@ -27,6 +27,7 @@ Package.resolved
 # DO NOT commit your raw API keys. 
 # We will handle these via a Secrets.plist or Environment Variables later.
 Secrets.plist
+Secrets.swift
 GoogleService-Info.plist
 
 # --- Misc ---
