@@ -1,18 +1,17 @@
 import SwiftUI
 
-
 struct BrainstormView: View {
     // 1. Global State (Injected from App)
     @Environment(AppStore.self) private var appStore
     
-    // 2. Local State (Managed by our new ViewModel)
+    // 2. Local State (Managed by the ViewModel)
     @State private var viewModel = BrainstormViewModel(aiProvider: OpenAIProvider())
     
     var body: some View {
         NavigationStack {
             Form {
                 Section(header: Text("What's on your mind?")) {
-                    TextField("e.g., Study for my final", text: $viewModel.draftGoal)
+                    TextField("e.g., Study for my final", text: $viewModel.draftTask)
                     
                     Picker("Energy Level", selection: $viewModel.draftEnergy) {
                         ForEach(EnergyLevel.allCases, id: \.self) { level in
@@ -25,10 +24,13 @@ struct BrainstormView: View {
                 Section {
                     Button(action: {
                         Task {
-                            // 1. Ask ViewModel to do the heavy lifting
-                            if let newTasks = await viewModel.generateActionPlan() {
-                                // 2. Route the results to the Global Vault
-                                appStore.saveNewPlan(tasks: newTasks)
+                            //fetch the Task and its Subtasks
+                            if let newTask = await viewModel.fetchActionPlan() {
+                                //Route the results to the Store
+                                appStore.addNewTask(newTask)
+                                
+                                //Clear the input field after success
+                                viewModel.draftTask = ""
                             }
                         }
                     }) {
@@ -45,20 +47,53 @@ struct BrainstormView: View {
                         }
                     }
                     .disabled(!viewModel.isFormValid)
-                    .listRowBackground(Color.blue)
+                    // Makes the button look disabled when the text field is empty
+                    .listRowBackground(viewModel.isFormValid ? Color.blue : Color.gray.opacity(0.3))
                     .foregroundColor(.white)
                 }
                 
-                // Read from the global store to show the final result
-                if !appStore.activeTasks.isEmpty {
-                    Section(header: Text("Your Game Plan")) {
-                        ForEach(appStore.activeTasks) { task in
-                            HStack {
-                                Text(task.title)
-                                Spacer()
-                                Text("\(task.estimatedMinutes)m")
-                                    .foregroundColor(.secondary)
+                // Read from the global store to show the Task
+                if !appStore.session.activeTasks.isEmpty {
+                    Section(header: Text("Active Tasks")) {
+                        ForEach(appStore.session.activeTasks) { task in
+                            VStack(alignment: .leading, spacing: 8) {
+                                // MARK: - Parent Task Row
+                                HStack {
+                                    Text(task.title)
+                                        .font(.headline)
+                                    Spacer()
+                                    Text("\(task.estimatedMinutes)m")
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.blue)
+                                }
+                                
+                                // MARK: - Subtasks List
+                                if !task.subtasks.isEmpty {
+                                    VStack(alignment: .leading, spacing: 8) {
+                                        ForEach(task.subtasks) { subtask in
+                                            HStack(alignment: .top) {
+                                                Image(systemName: subtask.isCompleted ? "checkmark.circle.fill" : "circle")
+                                                    .foregroundColor(subtask.isCompleted ? .green : .gray)
+                                                    .font(.subheadline)
+                                                
+                                                Text(subtask.title)
+                                                    .font(.subheadline)
+                                                    .strikethrough(subtask.isCompleted, color: .gray)
+                                                    .foregroundColor(subtask.isCompleted ? .gray : .primary)
+                                                
+                                                Spacer()
+                                                
+                                                Text("\(subtask.estimatedMinutes)m")
+                                                    .font(.caption)
+                                                    .foregroundColor(.secondary)
+                                            }
+                                        }
+                                    }
+                                    .padding(.leading, 16) // This indents the subtasks so it looks like a tree
+                                    .padding(.top, 4)
+                                }
                             }
+                            .padding(.vertical, 4)
                         }
                     }
                 }

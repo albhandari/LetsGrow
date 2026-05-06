@@ -6,10 +6,16 @@ struct TaskItem: Identifiable, Codable, Equatable {
     let title: String
     let estimatedMinutes: Int
     var isCompleted: Bool = false
+    var targetDate: Date?
     
+    var subtasks: [Subtask] = []
     
-    enum CodingKeys: String, CodingKey {
-        case title
-        case estimatedMinutes
-    }
+}
+
+struct Subtask: Identifiable, Codable, Equatable{
+    var id: UUID = UUID()
+    var title: String
+    var estimatedMinutes: Int
+    var isCompleted: Bool = false
+    var scheduledDate: Date?
 }

@@ -13,7 +13,7 @@ protocol NetworkServiceProtocol {
 }
 
 final class NetworkManager: NetworkServiceProtocol {
-    // A singleton is okay here, but we will inject it as a protocol anyway
+    //Shared Singleton
     static let shared = NetworkManager()
     
     private let session: URLSession
