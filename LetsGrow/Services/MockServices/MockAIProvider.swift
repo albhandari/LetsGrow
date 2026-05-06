@@ -1,16 +1,28 @@
 import Foundation
 
-//Mock AIProvider Service for testing without hitting endpoint
+// Mock AIProvider Service for testing without hitting endpoint
 final class MockAIProvider: AIProviderProtocol {
-    func generateTaskPlan(goal: String, energy: EnergyLevel) async throws -> [TaskItem] {
+    
+    
+    func generateTaskPlan(userInput: String, energy: EnergyLevel) async throws -> TaskItem {
         
-        //Simulate wait time
+        // Simulate network wait time
         try await Task.sleep(nanoseconds: 1_000_000_000)
         
-        return [
-            TaskItem(title: "Step 1: Just open the app", estimatedMinutes: 2),
-            TaskItem(title: "Step 2: Breathe for 30 seconds", estimatedMinutes: 1),
-            TaskItem(title: "Step 3: Write one line of code", estimatedMinutes: 5)
+        //Mock subtasks
+        let mockSubtasks = [
+            Subtask(title: "Step 1: Gather your materials", estimatedMinutes: 5),
+            Subtask(title: "Step 2: Execute the core work", estimatedMinutes: energy == .low ? 15 : 30),
+            Subtask(title: "Step 3: Review and cool down", estimatedMinutes: 5)
         ]
+        
+        //Calculate the total time for all the steps
+        let totalMinutes = mockSubtasks.reduce(0) { $0 + $1.estimatedMinutes }
+        
+        return TaskItem(
+            title: userInput,
+            estimatedMinutes: totalMinutes,
+            subtasks: mockSubtasks
+        )
     }
 }
