@@ -7,6 +7,8 @@ struct UserSession: Codable, Equatable {
     var activeStreak: Int = 0
     var lastLoginDate: Date = Date()
     
+    var activeTasks: [TaskItem] = []
+    
     mutating func addCoins(_ amount: Int) {
         totalCoins += amount
     }
