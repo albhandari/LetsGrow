@@ -63,13 +63,26 @@ final class AppStore {
             return
         }
         
+        //Toggle the visual completion status so the UI updates immediately
         session.activeTasks[taskIndex].subtasks[subtaskIndex].isCompleted.toggle()
         
-        // Future Gamification Hook
-        if session.activeTasks[taskIndex].subtasks[subtaskIndex].isCompleted {
+        // The Exploit Fix: make sure the task isn't being re-done for duplicate payment
+        let isDone = session.activeTasks[taskIndex].subtasks[subtaskIndex].isCompleted
+        let alreadyPaid = session.activeTasks[taskIndex].subtasks[subtaskIndex].hasAwardedCoins
+        
+        if isDone && !alreadyPaid {
+            //First time completing so pay the user.
             session.addCoins(5)
+            
+            //Lock the vault so they can't farm this subtask again
+            session.activeTasks[taskIndex].subtasks[subtaskIndex].hasAwardedCoins = true
+            
+            print("Payout successful! 5 coins added!")
+        } else if isDone && alreadyPaid {
+            // They are trying to spam the button. Block the payout.
+            print("User already received coins for this task.")
         }
         
-        saveToDisk() // Trigger a save
+        saveToDisk() // Trigger a background save
     }
 }

@@ -18,4 +18,6 @@ struct Subtask: Identifiable, Codable, Equatable{
     var estimatedMinutes: Int
     var isCompleted: Bool = false
     var scheduledDate: Date?
+    
+    var hasAwardedCoins: Bool = false
 }
