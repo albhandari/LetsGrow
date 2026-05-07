@@ -14,7 +14,7 @@ struct LetsGrowApp: App {
     
     var body: some Scene {
         WindowGroup {
-            BrainstormView()
+            MainTabView()
                 .environment(appStore)
         }
     }
