@@ -63,24 +63,36 @@ final class AppStore {
             return
         }
         
-        //Toggle the visual completion status so the UI updates immediately
+        // 1. Toggle the visual completion status
         session.activeTasks[taskIndex].subtasks[subtaskIndex].isCompleted.toggle()
         
-        // The Exploit Fix: make sure the task isn't being re-done for duplicate payment
+        // 2. The Exploit Fix: Check the vault lock
         let isDone = session.activeTasks[taskIndex].subtasks[subtaskIndex].isCompleted
         let alreadyPaid = session.activeTasks[taskIndex].subtasks[subtaskIndex].hasAwardedCoins
         
         if isDone && !alreadyPaid {
-            //First time completing so pay the user.
             session.addCoins(5)
-            
-            //Lock the vault so they can't farm this subtask again
             session.activeTasks[taskIndex].subtasks[subtaskIndex].hasAwardedCoins = true
-            
-            print("Payout successful! 5 coins added!")
+            print("💰 Payout successful! 5 coins added.")
         } else if isDone && alreadyPaid {
-            // They are trying to spam the button. Block the payout.
-            print("User already received coins for this task.")
+            print("🛡️ Exploit blocked: User already received coins for this task.")
+        }
+        
+        
+        // 3. Check if EVERY subtask inside this parent is now completed
+        let allSubtasksDone = session.activeTasks[taskIndex].subtasks.allSatisfy { $0.isCompleted == true }
+        
+        if allSubtasksDone {
+            // 4. Mark the parent as complete!
+            session.activeTasks[taskIndex].isCompleted = true
+            
+            // 5. THE BIG PAYOUT: Give a bonus for finishing the whole goal
+            session.addCoins(20)
+            print("🎉 Parent Task Complete! 20 Bonus Coins awarded.")
+            
+        } else {
+            // If they uncheck a subtask, un-complete the parent just in case
+            session.activeTasks[taskIndex].isCompleted = false
         }
         
         saveToDisk() // Trigger a background save
