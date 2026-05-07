@@ -6,35 +6,70 @@ import Foundation
 final class AppStore {
     // MARK: - Global State
     
-    // The Master Session (Volatile for now, resets on app close)
+    // The Master Session (Now tied to the hard drive!)
     var session = UserSession()
     
-    // Timer State (Shared across the app)
+    // Timer State
     var timeRemaining: Int = 0
     var isTimerRunning: Bool = false
     
-    // MARK: - Global Intents
+    // MARK: - Dependencies
+    private let persistenceManager: PersistenceManagerProtocol
     
-    // Adds a newly generated parent task (and its subtasks) to the session
-    func addNewTask(_ task: TaskItem) {
-        session.activeTasks.append(task)
+    //Make parameter optional to allow for dependency injection
+    init(persistenceManager: PersistenceManagerProtocol? = nil) {
+        //Creates the default instance inside MainActor
+        self.persistenceManager = persistenceManager ?? LocalPersistenceManager()
+        
+        // As soon as the AppStore is created, load the saved data
+        Task {
+            await initializeSession()
+        }
     }
     
-    // Finds the specific subtask inside the specific parent task and toggles it
+    // MARK: - Core Persistence Logic
+    private func initializeSession() async {
+        do {
+            self.session = try await persistenceManager.loadSession()
+            print("Successfully loaded session with \(session.activeTasks.count) tasks.")
+        } catch {
+            print("Failed to load session, starting fresh. Error: \(error)")
+        }
+    }
+    
+    private func saveToDisk() {
+        // Capture the current session to safely save it in the background
+        let currentSession = self.session
+        Task {
+            do {
+                try await persistenceManager.saveSession(currentSession)
+                print("Session saved securely to disk.")
+            } catch {
+                print("Failed to save session: \(error)")
+            }
+        }
+    }
+    
+    // MARK: - Global Intents
+    
+    func addNewTask(_ task: TaskItem) {
+        session.activeTasks.append(task)
+        saveToDisk() // Trigger a save
+    }
+    
     func toggleSubtask(taskId: UUID, subtaskId: UUID) {
-        // 1. Find the parent task
         guard let taskIndex = session.activeTasks.firstIndex(where: { $0.id == taskId }),
-              // 2. Find the child subtask inside that parent task
               let subtaskIndex = session.activeTasks[taskIndex].subtasks.firstIndex(where: { $0.id == subtaskId }) else {
             return
         }
         
-        // 3. Toggle the completion status
         session.activeTasks[taskIndex].subtasks[subtaskIndex].isCompleted.toggle()
         
-        // Future Gamification Hook: Reward the user for checking it off!
+        // Future Gamification Hook
         if session.activeTasks[taskIndex].subtasks[subtaskIndex].isCompleted {
-             session.addCoins(5)
+            session.addCoins(5)
         }
+        
+        saveToDisk() // Trigger a save
     }
 }
