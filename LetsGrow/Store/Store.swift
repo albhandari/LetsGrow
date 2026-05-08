@@ -52,49 +52,56 @@ final class AppStore {
     
     // MARK: - Global Intents
     
-    func addNewTask(_ task: TaskItem) {
-        session.activeTasks.append(task)
-        saveToDisk() // Trigger a save
-    }
-    
     func toggleSubtask(taskId: UUID, subtaskId: UUID) {
+        // 1. Iterate through the Tasks to find the exact indexes of the task and the subtask
         guard let taskIndex = session.activeTasks.firstIndex(where: { $0.id == taskId }),
               let subtaskIndex = session.activeTasks[taskIndex].subtasks.firstIndex(where: { $0.id == subtaskId }) else {
             return
         }
         
-        // 1. Toggle the visual completion status
+        // 2. Toggle the visual UI state
         session.activeTasks[taskIndex].subtasks[subtaskIndex].isCompleted.toggle()
         
-        // 2. The Exploit Fix: Check the vault lock
+        // 3. Assess the payout math
+        processSubtaskPayout(taskIndex: taskIndex, subtaskIndex: subtaskIndex)
+        
+        // 4. Check if all subtasks are completed for the main task
+        checkParentCompletion(taskIndex: taskIndex)
+        
+        // 5. Save to hard drive
+        saveToDisk()
+    }
+    
+    // MARK: - Private Logic Helpers
+    
+    //Handle payout per subtask and overall task without duplicates/exploit
+    private func processSubtaskPayout(taskIndex: Int, subtaskIndex: Int) {
         let isDone = session.activeTasks[taskIndex].subtasks[subtaskIndex].isCompleted
         let alreadyPaid = session.activeTasks[taskIndex].subtasks[subtaskIndex].hasAwardedCoins
         
         if isDone && !alreadyPaid {
             session.addCoins(5)
             session.activeTasks[taskIndex].subtasks[subtaskIndex].hasAwardedCoins = true
-            print("💰 Payout successful! 5 coins added.")
+            print("Payout successful! 5 coins added.")
         } else if isDone && alreadyPaid {
-            print("🛡️ Exploit blocked: User already received coins for this task.")
+            print("Exploit blocked: User already received coins for this task.")
         }
+    }
+    
+    //Check wether the main task is completed by checking wether all the subtasks are completed
+    private func checkParentCompletion(taskIndex: Int) {
+        let allSubtasksDone = session.activeTasks[taskIndex].subtasks.allSatisfy { $0.isCompleted }
+        let isParentAlreadyDone = session.activeTasks[taskIndex].isCompleted
         
-        
-        // 3. Check if EVERY subtask inside this parent is now completed
-        let allSubtasksDone = session.activeTasks[taskIndex].subtasks.allSatisfy { $0.isCompleted == true }
-        
-        if allSubtasksDone {
-            // 4. Mark the parent as complete!
+        // Only trigger the bonus if it's transitioning from incomplete to complete
+        if allSubtasksDone && !isParentAlreadyDone {
             session.activeTasks[taskIndex].isCompleted = true
-            
-            // 5. THE BIG PAYOUT: Give a bonus for finishing the whole goal
             session.addCoins(20)
-            print("🎉 Parent Task Complete! 20 Bonus Coins awarded.")
+            print("Parent Task Complete! 20 Bonus Coins awarded.")
             
-        } else {
-            // If they uncheck a subtask, un-complete the parent just in case
+        } else if !allSubtasksDone {
+            // Un-complete parent if a subtask gets unchecked
             session.activeTasks[taskIndex].isCompleted = false
         }
-        
-        saveToDisk() // Trigger a background save
     }
 }
