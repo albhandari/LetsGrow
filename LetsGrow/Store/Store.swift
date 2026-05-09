@@ -52,6 +52,11 @@ final class AppStore {
     
     // MARK: - Global Intents
     
+    func addNewTask(_ task: TaskItem) {
+        session.activeTasks.append(task)
+        saveToDisk()
+    }
+    
     func toggleSubtask(taskId: UUID, subtaskId: UUID) {
         // 1. Iterate through the Tasks to find the exact indexes of the task and the subtask
         guard let taskIndex = session.activeTasks.firstIndex(where: { $0.id == taskId }),
